@@ -1,0 +1,325 @@
+
+
+================================================================
+== Vivado HLS Report for 'nearest_neighbor'
+================================================================
+* Date:           Thu Oct  2 21:56:53 2014
+
+* Version:        2014.2 (Build 932637 on Wed Jun 11 12:38:34 PM 2014)
+* Project:        hls.prj
+* Solution:       solution1
+* Product family: zynq zynq_fpv6 
+* Target device:  xc7z020clg484-1
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing (ns): 
+    * Summary: 
+    +---------+-------+----------+------------+
+    |  Clock  | Target| Estimated| Uncertainty|
+    +---------+-------+----------+------------+
+    |default  |  10.00|      5.33|        1.25|
+    +---------+-------+----------+------------+
+
++ Latency (clock cycles): 
+    * Summary: 
+    +---------+---------+---------+---------+---------+
+    |      Latency      |      Interval     | Pipeline|
+    |   min   |   max   |   min   |   max   |   Type  |
+    +---------+---------+---------+---------+---------+
+    |  1044001|  1044001|  1044002|  1044002|   none  |
+    +---------+---------+---------+---------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-----------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                 |      Latency      | Iteration|  Initiation Interval  | Trip |          |
+        |    Loop Name    |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +-----------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- Loop 1         |  1044000|  1044000|       522|          -|          -|  2000|    no    |
+        | + Loop 1.1      |      520|      520|        52|          -|          -|    10|    no    |
+        |  ++ Loop 1.1.1  |       49|       49|         1|          -|          -|    49|    no    |
+        +-----------------+---------+---------+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+-------+--------+-------+
+|       Name      | BRAM_18K| DSP48E|   FF   |  LUT  |
++-----------------+---------+-------+--------+-------+
+|Expression       |        -|      -|       -|      -|
+|FIFO             |        -|      -|       -|      -|
+|Instance         |        -|      -|       -|      -|
+|Memory           |        -|      -|       -|      -|
+|Multiplexer      |        -|      -|       -|      -|
+|Register         |        -|      -|       -|      -|
++-----------------+---------+-------+--------+-------+
+|Total            |        0|      0|       0|      0|
++-----------------+---------+-------+--------+-------+
+|Available        |      280|    220|  106400|  53200|
++-----------------+---------+-------+--------+-------+
+|Utilization (%)  |        0|      0|       0|      0|
++-----------------+---------+-------+--------+-------+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    N/A
+
+    * Multiplexer: 
+    N/A
+
+    * Register: 
+    N/A
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
+N/A
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 1
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states: 5
+* Pipeline: 0
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 
+	2  / true
+2 --> 
+	3  / (!exitcond1)
+3 --> 
+	2  / (exitcond)
+	4  / (!exitcond)
+4 --> 
+	5  / true
+5 --> 
+	5  / (!exitcond_i)
+	3  / (exitcond_i)
+* FSM state operations: 
+
+ <State 1>: 1.57ns
+ST_1: max_difference_V_1 [1/1] 0.00ns
+:0  %max_difference_V_1 = alloca i49, align 8
+
+ST_1: stg_7 [1/1] 0.00ns
+:1  call void (...)* @_ssdm_op_SpecBitsMap(i49* %input_V), !map !7
+
+ST_1: stg_8 [1/1] 0.00ns
+:2  call void (...)* @_ssdm_op_SpecBitsMap(i4* %nearest_V), !map !11
+
+ST_1: stg_9 [1/1] 0.00ns
+:3  call void (...)* @_ssdm_op_SpecTopModule([17 x i8]* @str) nounwind
+
+ST_1: stg_10 [1/1] 1.57ns
+:4  store i49 2000, i49* %max_difference_V_1, align 8
+
+ST_1: stg_11 [1/1] 1.39ns
+:5  br label %.loopexit
+
+
+ <State 2>: 3.50ns
+ST_2: data [1/1] 0.00ns
+.loopexit:0  %data = phi i11 [ 0, %0 ], [ %data_1, %.preheader ]
+
+ST_2: exitcond1 [1/1] 2.11ns
+.loopexit:1  %exitcond1 = icmp eq i11 %data, -48
+
+ST_2: empty [1/1] 0.00ns
+.loopexit:2  %empty = call i32 (...)* @_ssdm_op_SpecLoopTripCount(i64 2000, i64 2000, i64 2000)
+
+ST_2: data_1 [1/1] 1.84ns
+.loopexit:3  %data_1 = add i11 %data, 1
+
+ST_2: stg_16 [1/1] 1.39ns
+.loopexit:4  br i1 %exitcond1, label %4, label %.preheader
+
+ST_2: stg_17 [1/1] 0.00ns
+:0  ret void
+
+
+ <State 3>: 4.35ns
+ST_3: val_assign [1/1] 0.00ns
+.preheader:0  %val_assign = phi i4 [ %possible_result, %.preheader.backedge ], [ 0, %.loopexit ]
+
+ST_3: phi_mul [1/1] 0.00ns
+.preheader:1  %phi_mul = phi i15 [ %next_mul, %.preheader.backedge ], [ 0, %.loopexit ]
+
+ST_3: next_mul [1/1] 1.96ns
+.preheader:2  %next_mul = add i15 %phi_mul, 2000
+
+ST_3: exitcond [1/1] 1.88ns
+.preheader:3  %exitcond = icmp eq i4 %val_assign, -6
+
+ST_3: empty_2 [1/1] 0.00ns
+.preheader:4  %empty_2 = call i32 (...)* @_ssdm_op_SpecLoopTripCount(i64 10, i64 10, i64 10)
+
+ST_3: possible_result [1/1] 0.80ns
+.preheader:5  %possible_result = add i4 %val_assign, 1
+
+ST_3: stg_24 [1/1] 0.00ns
+.preheader:6  br i1 %exitcond, label %.loopexit, label %1
+
+ST_3: tmp_trn_cast [1/1] 0.00ns
+:0  %tmp_trn_cast = zext i11 %data to i15
+
+ST_3: training_data_addr2 [1/1] 1.96ns
+:1  %training_data_addr2 = add i15 %phi_mul, %tmp_trn_cast
+
+ST_3: tmp [1/1] 0.00ns
+:2  %tmp = zext i15 %training_data_addr2 to i64
+
+ST_3: training_data_addr [1/1] 0.00ns
+:3  %training_data_addr = getelementptr [20000 x i48]* @training_data, i64 0, i64 %tmp
+
+ST_3: rhs_V [2/2] 2.39ns
+:5  %rhs_V = load i48* %training_data_addr, align 8
+
+
+ <State 4>: 5.33ns
+ST_4: lhs_V [1/1] 0.00ns
+:4  %lhs_V = call i49 @_ssdm_op_Read.ap_auto.i49P(i49* %input_V)
+
+ST_4: rhs_V [1/2] 2.39ns
+:5  %rhs_V = load i48* %training_data_addr, align 8
+
+ST_4: rhs_V_cast [1/1] 0.00ns
+:6  %rhs_V_cast = zext i48 %rhs_V to i49
+
+ST_4: r_V [1/1] 1.37ns
+:7  %r_V = xor i49 %rhs_V_cast, %lhs_V
+
+ST_4: stg_34 [1/1] 1.57ns
+:8  br label %2
+
+
+ <State 5>: 4.41ns
+ST_5: p_i [1/1] 0.00ns
+:0  %p_i = phi i49 [ %r_V, %1 ], [ %diff_V_1, %_ifconv ]
+
+ST_5: p_1_i [1/1] 0.00ns
+:1  %p_1_i = phi i49 [ 0, %1 ], [ %counter_V_1, %_ifconv ]
+
+ST_5: i_i [1/1] 0.00ns
+:2  %i_i = phi i6 [ 0, %1 ], [ %i, %_ifconv ]
+
+ST_5: exitcond_i [1/1] 1.94ns
+:3  %exitcond_i = icmp eq i6 %i_i, -15
+
+ST_5: empty_3 [1/1] 0.00ns
+:4  %empty_3 = call i32 (...)* @_ssdm_op_SpecLoopTripCount(i64 49, i64 49, i64 49)
+
+ST_5: i [1/1] 1.72ns
+:5  %i = add i6 %i_i, 1
+
+ST_5: stg_41 [1/1] 0.00ns
+:6  br i1 %exitcond_i, label %find_difference.exit, label %_ifconv
+
+ST_5: tmp_7_i [1/1] 2.62ns
+_ifconv:0  %tmp_7_i = icmp eq i49 %p_i, 0
+
+ST_5: tmp_8_i [1/1] 3.04ns
+_ifconv:1  %tmp_8_i = add i49 %p_i, -1
+
+ST_5: diff_V_1 [1/1] 1.37ns
+_ifconv:2  %diff_V_1 = and i49 %tmp_8_i, %p_i
+
+ST_5: counter_V [1/1] 3.04ns
+_ifconv:3  %counter_V = add i49 %p_1_i, 1
+
+ST_5: counter_V_1 [1/1] 1.37ns
+_ifconv:4  %counter_V_1 = select i1 %tmp_7_i, i49 %p_1_i, i49 %counter_V
+
+ST_5: stg_47 [1/1] 0.00ns
+_ifconv:5  br label %2
+
+ST_5: max_difference_V_1_load [1/1] 0.00ns
+find_difference.exit:0  %max_difference_V_1_load = load i49* %max_difference_V_1, align 8
+
+ST_5: difference_V [1/1] 0.00ns
+find_difference.exit:1  %difference_V = trunc i49 %p_1_i to i6
+
+ST_5: max_difference_V [1/1] 0.00ns
+find_difference.exit:2  %max_difference_V = zext i6 %difference_V to i49
+
+ST_5: tmp_4 [1/1] 2.62ns
+find_difference.exit:3  %tmp_4 = icmp ult i49 %max_difference_V, %max_difference_V_1_load
+
+ST_5: stg_52 [1/1] 0.00ns
+find_difference.exit:4  br i1 %tmp_4, label %3, label %.preheader.backedge
+
+ST_5: stg_53 [1/1] 0.00ns
+:0  call void @_ssdm_op_Write.ap_auto.i4P(i4* %nearest_V, i4 %val_assign)
+
+ST_5: stg_54 [1/1] 1.57ns
+:1  store i49 %max_difference_V, i49* %max_difference_V_1, align 8
+
+ST_5: stg_55 [1/1] 0.00ns
+:2  br label %.preheader.backedge
+
+ST_5: stg_56 [1/1] 0.00ns
+.preheader.backedge:0  br label %.preheader
+
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

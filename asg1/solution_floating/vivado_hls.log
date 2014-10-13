@@ -1,0 +1,59 @@
+================================================================
+  Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC
+  Version: 2013.2
+  Build date: Thu Jun 13 16:07:59 PM 2013
+  Copyright (C) 2013 Xilinx Inc. All rights reserved.
+================================================================
+@I [LIC-101] Checked out feature [HLS]
+@I [HLS-10] Running '/opt/xilinx/Vivado_HLS/2013.2/Linux_x86_64/bin/vivado_hls_bin'
+            for user 'vff6' on host 'amdpool-01.ece.cornell.edu' (Linux_x86_64 version 2.6.18-371.6.1.el5) on Tue Sep 16 23:11:49 EDT 2014
+            in directory '/home/student/vff6/ece5775/assignments/solution_floating'
+@I [HLS-10] Opening project '/home/student/vff6/ece5775/assignments/solution_floating/hls.prj'.
+@I [HLS-10] Adding design file 'cordic.cpp' to the project.
+@I [HLS-10] Adding test bench file 'cordic_test.cpp' to the project.
+@I [HLS-10] Opening solution '/home/student/vff6/ece5775/assignments/solution_floating/hls.prj/solution1'.
+@I [SYN-201] Setting up clock 'default' with a period of 10ns.
+@I [HLS-10] Setting target device to 'xc7z020clg484-1'
+@I [HLS-10] Importing test bench file 'cordic_test.cpp' ... 
+@I [HLS-10] Analyzing design file 'cordic.cpp' ... 
+@I [HLS-10] Validating synthesis directives ...
+@I [HLS-10] Checking synthesizability ...
+@I [HLS-10] Starting code transformations ...
+@I [HLS-111] Elapsed time: 5.23 seconds; current memory usage: 36.9 MB.
+@I [HLS-10] Starting hardware synthesis ...
+@I [HLS-10] Synthesizing 'cordic' ...
+@I [HLS-10] ----------------------------------------------------------------
+@I [HLS-10] -- Scheduling module 'cordic' 
+@I [HLS-10] ----------------------------------------------------------------
+@I [SCHED-11] Starting scheduling ...
+@I [SCHED-11] Finished scheduling.
+@I [HLS-111] Elapsed time: 0.05 seconds; current memory usage: 37.6 MB.
+@I [HLS-10] ----------------------------------------------------------------
+@I [HLS-10] -- Exploring micro-architecture for module 'cordic' 
+@I [HLS-10] ----------------------------------------------------------------
+@I [BIND-100] Starting micro-architecture binding ...
+@I [BIND-101] Performing variable lifetime analysis.
+@I [BIND-101] Exploring resource sharing.
+@I [BIND-101] Binding resource limited operations ...
+@I [BIND-100] Finished micro-architecture binding.
+@I [HLS-111] Elapsed time: 0.05 seconds; current memory usage: 38.2 MB.
+@I [HLS-10] ----------------------------------------------------------------
+@I [HLS-10] -- Generating RTL for module 'cordic' 
+@I [HLS-10] ----------------------------------------------------------------
+@I [RTGEN-500] Setting interface mode on port 'cordic/theta' to 'ap_none'.
+@I [RTGEN-500] Setting interface mode on port 'cordic/s' to 'ap_vld'.
+@I [RTGEN-500] Setting interface mode on port 'cordic/c' to 'ap_vld'.
+@I [RTGEN-500] Setting interface mode on function 'cordic' to 'ap_ctrl_hs'.
+@I [RTGEN-100] Module generated: cordic_dadddsub_64ns_64ns_64_5_full_dsp|cordic_dadddsub_64ns_64ns_64_5_full_dsp_U1.
+@I [RTGEN-100] Module generated: cordic_ddiv_64ns_64ns_64_31|cordic_ddiv_64ns_64ns_64_31_U2.
+@I [RTGEN-100] Module generated: cordic_dcmp_64ns_64ns_1_3|cordic_dcmp_64ns_64ns_1_3_U3.
+@I [RTGEN-100] Module generated: cordic_uitodp_64ns_64_6|cordic_uitodp_64ns_64_6_U4.
+@I [RTGEN-100] Finished creating RTL model for 'cordic'.
+@I [HLS-111] Elapsed time: 0.07 seconds; current memory usage: 38.8 MB.
+@I [RTMG-279] Implementing memory 'cordic_cordic_ctab_rom' using auto ROMs.
+@I [HLS-10] Finished generating all RTL models.
+@I [WSYSC-301] Generating RTL SystemC for 'cordic'.
+@I [WVHDL-304] Generating RTL VHDL for 'cordic'.
+@I [WVLOG-307] Generating RTL Verilog for 'cordic'.
+@I [HLS-112] Total elapsed time: 30.561 seconds; peak memory usage: 38.8 MB.
+@I [LIC-101] Checked in feature [HLS]
