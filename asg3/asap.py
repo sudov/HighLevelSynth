@@ -6,8 +6,11 @@ import os
 import llvm 
 # top-level, for common stuff
 from llvm.core import *
-from functools import partial
-from operator import is_not
+
+# Global resource values
+resources 		= 0;
+add_sub_units 	= 0;
+mul_func_units 	= 0;
 
 #===----------------------------------------------------------------------===
 # Get the name of an LLVM value
@@ -161,10 +164,15 @@ def run(testcase):
 			break;
 	overall_arr = overall_arr[0:truncate][0:truncate];
 
-	# Close test-case file
+	#	Close test-case file
 	f.close()
- 
-	#Print Shit to Console
+ 	
+ 	#	Update global resource values
+ 	calculate_addSub(overall_arr);
+ 	calculate_mul(overall_arr);
+ 	calculate_resources(overall_arr);
+
+	#	Print Shit to Console
 	print_to_screen(overall_arr)
 
 # Prompt CLI usage
