@@ -12,7 +12,6 @@ resources 		= 0;
 add_sub_units 	= 0;
 mul_func_units 	= 0;
 
-#===----------------------------------------------------------------------===
 # Get the name of an LLVM value
 def get_name(val) :
 	if (not isinstance(val, Value)):
@@ -105,6 +104,39 @@ def print_dot(dut, filename):
 	file.write("}\n")
 	file.close() 
 
+def calculate_addSub(matrix):
+	max_units = 0;
+	for column in matrix:
+		curr_max_units = 0;
+		for item in column:
+			if is_addsub(item):
+				curr_max_units += 1;
+		if curr_max_units > max_units:
+			max_units = curr_max_units;
+	return max_units;
+
+def calculate_mul(matrix):
+	max_units = 0;
+	for column in matrix:
+		curr_max_units = 0;
+		for item in column:
+			if is_mul(item):
+				curr_max_units += 1;
+		if curr_max_units > max_units:
+			max_units = curr_max_units;
+	return max_units;
+
+def calculate_resources(matrix):
+	max_units = 0;
+	for column in matrix:
+		curr_max_units = 0;
+		for item in column:
+			if not is_store(item):
+				curr_max_units += 1;
+		if curr_max_units > max_units:
+			max_units = curr_max_units;
+	return max_units;
+
 def print_to_screen(matrix):
 	print ""
 	print "--------------  ASAP ----------------------"
@@ -113,6 +145,12 @@ def print_to_screen(matrix):
 		for item in matrix[i]:
 			print to_string(item);
 		print " "
+
+	print "-------------------------------------------"
+	#	Update global resource values
+	print "ADD-SUB Units : " + str(calculate_addSub(matrix));
+	print "MUL Units : " + str(calculate_mul(matrix));
+	print "Resource Usage: " + str(calculate_resources(matrix));
 	print "-------------------------------------------"
 	print ""
 
@@ -166,11 +204,6 @@ def run(testcase):
 
 	#	Close test-case file
 	f.close()
- 	
- 	#	Update global resource values
- 	calculate_addSub(overall_arr);
- 	calculate_mul(overall_arr);
- 	calculate_resources(overall_arr);
 
 	#	Print Shit to Console
 	print_to_screen(overall_arr)

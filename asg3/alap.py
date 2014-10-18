@@ -31,35 +31,36 @@ def get_name(val) :
     return val.name
 
 # Convenience functions
-
+ 
 # Is the value a store?
 def is_store(val) :
-    if not isinstance(val, Instruction):
-        return 0
-    return val.opcode_name == 'store'
-
+    last_elem = val.partition(' ')[0]
+    if "*" in last_elem: 
+        return True;
+        
 # Is the value a return?
 def is_return(val) :
     if not isinstance(val, Instruction):
         return 0 
     return val.opcode_name == 'ret'
-
+ 
 # Is the value a multiplication?
 def is_mul(val) :
-    if not isinstance(val, Instruction):
-        return 0
-    if not val.is_binary_op:
-        return 0
-    return val.opcode_name == 'mul'
+    operand_str = val.partition(' ')[2].strip('= ');
+
+    if "*" in operand_str:
+        return True;
+    else:
+        return False;
 
 # Is the value an addition or a subtraction?
 def is_addsub(val) :
-    if not isinstance(val, Instruction):
-        return 0
-    if not val.is_binary_op:
-        return 0
-    opc = val.opcode_name 
-    return opc == 'add' or opc == 'sub' 
+    operand_str = val.partition(' ')[2].strip('= ');
+
+    if "+" in operand_str or "-" in operand_str:
+        return True;
+    else:
+        return False;
 
 # Get the pretty string in C-like syntax of an LLVM value
 def to_string(val) :
@@ -93,6 +94,39 @@ def to_string(val) :
         return get_name(val)
     return '' 
 
+def calculate_addSub(matrix):
+    max_units = 0;
+    for column in matrix:
+        curr_max_units = 0;
+        for item in column:
+            if is_addsub(item):
+                curr_max_units += 1;
+        if curr_max_units > max_units:
+            max_units = curr_max_units;
+    return max_units;
+
+def calculate_mul(matrix):
+    max_units = 0;
+    for column in matrix:
+        curr_max_units = 0;
+        for item in column:
+            if is_mul(item):
+                curr_max_units += 1;
+        if curr_max_units > max_units:
+            max_units = curr_max_units;
+    return max_units;
+
+def calculate_resources(matrix):
+    max_units = 0;
+    for column in matrix:
+        curr_max_units = 0;
+        for item in column:
+            if not is_store(item):
+                curr_max_units += 1;
+        if curr_max_units > max_units:
+            max_units = curr_max_units;
+    return max_units;
+
 def print_to_screen(matrix):
     print ""
     print "--------------  ALAP ----------------------"
@@ -101,6 +135,12 @@ def print_to_screen(matrix):
         for item in matrix[i]:
             print item;
         print " "
+  
+    print "-------------------------------------------"
+    #   Update global resource values
+    print "ADD-SUB Units : " + str(calculate_addSub(matrix));
+    print "MUL Units : " + str(calculate_mul(matrix));
+    print "Resource Usage: " + str(calculate_resources(matrix));
     print "-------------------------------------------"
     print ""
 
