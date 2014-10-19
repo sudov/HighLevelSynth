@@ -37,7 +37,7 @@ def is_store(val) :
     last_elem = val.partition(' ')[0]
     if "*" in last_elem: 
         return True;
-        
+
 # Is the value a return?
 def is_return(val) :
     if not isinstance(val, Instruction):
@@ -94,6 +94,7 @@ def to_string(val) :
         return get_name(val)
     return '' 
 
+# Custom routine to find AddSub units needed for scheduling algorithm
 def calculate_addSub(matrix):
     max_units = 0;
     for column in matrix:
@@ -105,6 +106,7 @@ def calculate_addSub(matrix):
             max_units = curr_max_units;
     return max_units;
 
+# Custom routine to find Mult units needed for scheduling algorithm
 def calculate_mul(matrix):
     max_units = 0;
     for column in matrix:
@@ -116,6 +118,7 @@ def calculate_mul(matrix):
             max_units = curr_max_units;
     return max_units;
 
+# Custom routine to find Registers needed for scheduling algorithm
 def calculate_resources(matrix):
     max_units = 0;
     for column in matrix:
@@ -127,6 +130,7 @@ def calculate_resources(matrix):
             max_units = curr_max_units;
     return max_units;
 
+# Loops through the schedule passed in the form of a matrix and prints it out.
 def print_to_screen(matrix):
     print ""
     print "--------------  ALAP ----------------------"
@@ -157,7 +161,6 @@ def run(testcase):
     done_instructions   = []; 
     overall_done_instructions = [];
 
-    longest_streak      = [];
     current_streak      = [];
     streaks             = [];
     next_inst           = "None"
@@ -192,10 +195,7 @@ def run(testcase):
                     break;
 
         next_inst = "None";
-        streaks.append(current_streak);
-
-        if (len(current_streak) > len(longest_streak)):
-            longest_streak = current_streak;   
+        streaks.append(current_streak); 
         current_streak = []; 
 
     for streak in streaks:
@@ -316,7 +316,7 @@ def run(testcase):
     # Close test-case file
     f.close()
  
-    #Print to Console
+    # Print schedule to Console
     print_to_screen(overall_arr)
 
 # Prompt CLI usage

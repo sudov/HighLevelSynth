@@ -104,6 +104,7 @@ def print_dot(dut, filename):
 	file.write("}\n")
 	file.close() 
 
+# Custom routine to find AddSub units needed for scheduling algorithm
 def calculate_addSub(matrix):
 	max_units = 0;
 	for column in matrix:
@@ -115,6 +116,7 @@ def calculate_addSub(matrix):
 			max_units = curr_max_units;
 	return max_units;
 
+# Custom routine to find Mult units needed for scheduling algorithm
 def calculate_mul(matrix):
 	max_units = 0;
 	for column in matrix:
@@ -126,6 +128,7 @@ def calculate_mul(matrix):
 			max_units = curr_max_units;
 	return max_units;
 
+# Custom routine to find Registers needed for scheduling algorithm
 def calculate_resources(matrix):
 	max_units = 0;
 	for column in matrix:
@@ -137,6 +140,7 @@ def calculate_resources(matrix):
 			max_units = curr_max_units;
 	return max_units;
 
+# Loops through the schedule passed in the form of a matrix and prints it out.
 def print_to_screen(matrix):
 	print ""
 	print "--------------  ASAP ----------------------"
@@ -162,11 +166,13 @@ def run(testcase):
 	dut = m.get_function_named(dut_name)
 	
 	num_instr = len(dut.basic_blocks[0].instructions)
+	This is the 
 	overall_arr = [[None for x in range(num_instr)] for y in range(num_instr)]
 	total_instructions 	= dut.basic_blocks[0].instructions;
-	counter 			= 0;
-	done_instructions  	= []; 
-	curr_written_to 	= [];
+	counter 			= 0;	# while loop counter
+	done_instructions  	= []; 	# List stores scheduled instructions
+	curr_written_to 	= []; 	# Used to store operees to prevent Read
+								# after Write dependencies.
  
 	while True:
 		if len(done_instructions) == len(total_instructions)-1:
@@ -190,6 +196,8 @@ def run(testcase):
 		curr_written_to = [];
 		counter += 1;		
 
+	# Up ahead is cleanup code as the overall_arr is made the size of the worst case schedule wherein every instruction is a chained instruction. Hence the cleanup with the truncation and removal of trailing Nones.
+
 	# Removing Nones
 	for i in range(0, num_instr): 
 		overall_arr[i] = [x for x in overall_arr[i] if x is not None];
@@ -205,7 +213,7 @@ def run(testcase):
 	#	Close test-case file
 	f.close()
 
-	#	Print Shit to Console
+	#	Print the schedule to Console
 	print_to_screen(overall_arr)
 
 # Prompt CLI usage

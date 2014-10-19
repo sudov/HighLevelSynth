@@ -1,2 +1,0 @@
-nearest_neighbor_training_data
-nearest_neighbor
